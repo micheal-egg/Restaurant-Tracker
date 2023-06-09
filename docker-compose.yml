@@ -28,6 +28,8 @@ services:
   etl:
     build: ./etl
     container_name: kitchenops-etl
+    env_file:
+      - .env
     volumes:
       - ./data:/app/data
     depends_on:
