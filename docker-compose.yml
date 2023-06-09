@@ -1,0 +1,37 @@
+
+# Docker Compose configuration for KitchenOps application
+services:
+  db:
+    image: postgres:16
+    container_name: kitchenops-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: kitchenops-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  etl:
+    build: ./etl
+    container_name: kitchenops-etl
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - db
+
+volumes:
+  db_data:
