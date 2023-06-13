@@ -28,6 +28,12 @@ def load_ingredients(engine, csv_path):
         # Create engine connection to speak to Database
         with engine.begin() as conn:
             for row in reader:
+
+                valid, reason = validate_row(row)
+                if not valid:
+                    print("Invalid row:", row, "Reason:", reason)
+                    continue  # skip bad row, keep processing
+
                 conn.execute(
                     # For SQL inserts with conflict handling
                     text("""
@@ -43,22 +49,23 @@ def load_ingredients(engine, csv_path):
 
     print("Ingredients loaded")
 
-# Validate row data
-def row_valid(CSV_path):
+#Updated my Validation function
+def validate_row(row):
+    #Returns none if the key is missing 
+    #If data is not present it returns empty string
+    name = (row.get("ingredient_name") or "").strip()
+    unit = (row.get("base_unit") or "").strip()
 
-    with open(CSV_path, newline="") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if row["ingredient_name"] == "" or row["base_unit"] == "":
-                print ("Invalid row found:", row)
-                return False
-            else:
-                print("Row is valid")
+    # If either value is missing return False with message
+    if not name:
+        return False, "Missing ingredient_name"
+    if not unit:
+        return False, "Missing base_unit"
 
-    return True
+    return True, ""
 
 # Move file from inbox to processed
-def move_file(src_path, dest_dir):
+def move_file(src_path, dest_dir):#
     # This will turn my string path into a Path object
     src = Path(src_path)
     # This joins the dest_dir with the filename from src
@@ -76,7 +83,7 @@ def main():
 
     # Error handling to move files appropriately
     try:
-        load_ingredients(engine)
+        load_ingredients(engine, csv_path)
         move_file(csv_path, "/app/data/processed")
         print("Moved to processed")
     # Catch Exceptions and store the error event 
