@@ -1,4 +1,4 @@
-**KitchenOPS Inventory Tracker**
+#KitchenOPS Inventory Tracker
 
 A **Dockerized ETL pipeline** for tracking restaurant kitchen inventory over time using PostgreSQL.
 The system ingests raw CSV files, validates data, loads structured tables, and enables historical inventory analysis such as usage trends and stock changes.
