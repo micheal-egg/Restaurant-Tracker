@@ -1,4 +1,4 @@
-#KitchenOPS Inventory Tracker
+# <ins> KitchenOps Inventory Tracker </ins>
 
 A **Dockerized ETL pipeline** for tracking restaurant kitchen inventory over time using PostgreSQL.
 The system ingests raw CSV files, validates data, loads structured tables, and enables historical inventory analysis such as usage trends and stock changes.
@@ -7,7 +7,7 @@ Project Overview
 
 This project simulates how a restaurant kitchen manages inventory data in a production environment.
 
-**Core goals:**
+## Core goals:
 
 - Ingest raw inventory data into an inbox for processing
 
@@ -19,16 +19,20 @@ This project simulates how a restaurant kitchen manages inventory data in a prod
 
 - Enable analytics such as inventory drops, restocks, and usage trends
 
-**How to Run**
+## How to Run
 
 This project runs locally using Docker. No prior database or Python setup is required.
 
 1. Clone the Repo
-    - https://github.com/micheal-egg/Restaurant-Tracker
-    - cd Restaurant-Tracker
+
+    ``` 
+    https://github.com/micheal-egg/Restaurant-Tracker
+    cd Restaurant-Tracker
+    ```
 
 2. Create an .env file at your project root:
 
+    ```
     DB_USER=your_user
     DB_PASSWORD=your_password
     DB_HOST=db
@@ -36,21 +40,22 @@ This project runs locally using Docker. No prior database or Python setup is req
     DB_NAME=kitchenops
 
     PGADMIN_DEFAULT_EMAIL=admin@example.com
-    PGADMIN_DEFAULT_PASSWORD=your_password
+    PGADMIN_DEFAULT_PASSWORD=your_password 
+    ```
 
 
 3. Start the Infrastructure 
-    - Type in the terminal : docker compose up -d
+    - `docker compose up -d `
     - This will start up Postgre SQL
 
 4. You can place sample input data into "data/inbox/" (Included in my repo)
 
 5. Run ETL Pipeline 
-    - Run in the terminal : docker compose run --rm etl
+    - `docker compose run --rm etl `
     - This will read the CSVs in inbox, validate the rows and load clean data to PostgreSQL, then move data to processed or rejected
 
 6. Stopping the Project 
-    - Enter in terminal: docker compose down -v
+    - `docker compose down -v `
     
 
 **What This Project Demonstrates**
