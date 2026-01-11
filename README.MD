@@ -19,7 +19,7 @@ This project simulates how a restaurant kitchen manages inventory data in a prod
 
 - Enable analytics such as inventory drops, restocks, and usage trends
 
-## How to Run
+## 🚀 How to Run
 
 This project runs locally using Docker. No prior database or Python setup is required.
 
@@ -45,17 +45,23 @@ This project runs locally using Docker. No prior database or Python setup is req
 
 
 3. Start the Infrastructure 
-    - `docker compose up -d `
+    ```
+    docker compose up -d 
+    ```
     - This will start up Postgre SQL
 
 4. You can place sample input data into "data/inbox/" (Included in my repo)
 
 5. Run ETL Pipeline 
-    - `docker compose run --rm etl `
+    ```
+    docker compose run --rm etl 
+    ```
     - This will read the CSVs in inbox, validate the rows and load clean data to PostgreSQL, then move data to processed or rejected
 
 6. Stopping the Project 
-    - `docker compose down -v `
+    ```
+    `docker compose down -v `
+    ```
     
 
 **What This Project Demonstrates**
