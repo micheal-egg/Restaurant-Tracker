@@ -60,7 +60,7 @@ This project runs locally using Docker. No prior database or Python setup is req
 
 6. Stopping the Project 
     ```
-    `docker compose down -v `
+    docker compose down -v 
     ```
     
 
